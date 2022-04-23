@@ -1,25 +1,28 @@
 interfaces {
     ethernet eth0 {
-        address 192.168.0.6/24
+        address 192.168.0.16/24
         description outside
+        hw-id 52:54:00:52:fc:05
     }
     ethernet eth1 {
-        address 10.5.0.1/24
-        description "prox lab"
+        address 10.15.0.1/16
+        description local
+        hw-id 52:54:00:f5:99:36
         vif 53 {
-            address 10.5.53.0/31
+            address 10.15.53.0/31
             description "dns vlan"
         }
     }
     loopback lo {
     }
     wireguard wg0 {
-        address 10.21.21.0/31
-        description "ptp to vyos-metis"
-        peer vyos-metis {
-            address 192.168.0.16
+        address 10.21.21.1/31
+        description "ptp to vyos-prox"
+        peer vyos-prox {
+            address 192.168.0.6
             allowed-ips 10.21.21.0/31
-            allowed-ips 10.15.0.0/16
+            allowed-ips 10.5.0.0/16
+            persistent-keepalive 15
             port 51820
             public-key ****************
         }
@@ -43,10 +46,27 @@ protocols {
             next-hop 192.168.0.1 {
             }
         }
-        route 10.15.0.0/16 {
-            next-hop 10.21.21.1 {
+        route 10.5.0.0/16 {
+            next-hop 10.21.21.0 {
             }
         }
+    }
+}
+service {
+    dhcp-server {
+        shared-network-name METIS {
+            subnet 10.15.0.0/24 {
+                default-router 10.15.0.1
+                name-server 192.168.0.53
+                range 0 {
+                    start 10.15.0.100
+                    stop 10.15.0.200
+                }
+            }
+        }
+    }
+    ssh {
+        port 22
     }
 }
 system {
@@ -69,7 +89,7 @@ system {
             speed 115200
         }
     }
-    host-name vyos-prox
+    host-name vyos-metis
     login {
         user vyos {
             authentication {
