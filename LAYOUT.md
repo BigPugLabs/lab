@@ -7,19 +7,27 @@
 Home router 		192.168.0.1
 │
 ├── prox 		192.168.0.5
-│    └── vyos-prox	192.168.0.6
-│         └── bind-01   10.5.53.1
+│    └── vyos-prox	192.168.0.6	AS 64520
+│         ├── bind-01   10.5.53.1	AS 64530
+│         └── netsvr    10.5.0.7        AS 64700
+│
+├── netsvr              192.168.0.7	AS 64700
 │
 ├── metis		192.168.0.10
-│    └── metis-prox     192.168.0.16
-│         └── fedora-01 10.15.0.100
+│    └── metis-prox     192.168.0.16	AS 64520
+│         └── fedora-01 10.15.0.100	AS 64531
 │
 ├── other physical	192.168.0.20-29
 ├── virtual		192.168.0.30-50
 └── dhcp range		192.168.0.100-200
 ```
 
-## vyos-prox `10.5.0.0/16`
+## Service IPs
+
+Anycast dns 	10.53.53.53  
+pihole dns	192.168.0.53  
+
+## vyos-prox `10.5.0.0/16` AS 64520
 
 ```
 eth0                    192.168.0.6	wan
@@ -29,7 +37,7 @@ eth0                    192.168.0.6	wan
 └── wg0                 10.21.21.0/31	ptp with metis
 ```
 
-## vyos-metis `10.15.0.0/16`
+## vyos-metis `10.15.0.0/16` AS 64520
 
 ```
 eth0                    192.168.0.16    wan

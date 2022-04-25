@@ -22,6 +22,7 @@ interfaces {
             address 192.168.0.6
             allowed-ips 10.21.21.0/31
             allowed-ips 10.5.0.0/16
+            allowed-ips 10.0.0.0/8
             persistent-keepalive 15
             port 51820
             public-key ****************
@@ -41,13 +42,29 @@ nat {
     }
 }
 protocols {
+    bgp {
+        address-family {
+            ipv4-unicast {
+                network 10.15.0.0/24 {
+                }
+                network 10.21.21.0/31 {
+                }
+                network 192.168.0.0/24 {
+                }
+            }
+        }
+        local-as 64520
+        neighbor 10.21.21.0 {
+            address-family {
+                ipv4-unicast {
+                }
+            }
+            remote-as 64520
+        }
+    }
     static {
         route 0.0.0.0/0 {
             next-hop 192.168.0.1 {
-            }
-        }
-        route 10.5.0.0/16 {
-            next-hop 10.21.21.0 {
             }
         }
     }

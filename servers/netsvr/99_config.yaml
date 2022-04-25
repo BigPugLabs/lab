@@ -1,0 +1,29 @@
+# /etc/netplan/99_config.yaml
+# remove other configs first
+
+network:
+    version: 2
+    ethernets:
+        eth0:
+            addresses:
+            - 192.168.0.7/24
+            match:
+                macaddress: 06:6d:39:8b:07:0a
+            routes:
+            - to: default
+              via: 192.168.0.1
+            nameservers:
+                addresses:
+                - 192.168.0.1
+                search:
+                - 192.168.0.5.nip.io
+            set-name: eth0
+        ens19:
+            addresses:
+            - 10.5.0.7/24
+        lo:
+            match:
+                name: lo
+            addresses:
+            - 127.0.0.1/8
+            - 10.80.0.7/24

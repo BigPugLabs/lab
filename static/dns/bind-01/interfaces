@@ -1,0 +1,14 @@
+## /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+
+## Anycast IP
+auto lo:1
+iface lo:1 inet static
+        address 10.53.53.53/32
+
+auto eth0
+iface eth0 inet static
+        address 10.5.53.1/31
+        gateway 10.5.53.0
