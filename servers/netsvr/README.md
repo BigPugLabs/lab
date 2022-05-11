@@ -36,3 +36,21 @@ neal@netsvr:~$ sudo usermod -a -G frrvty neal
 5. edit `/etc/frr/daemons` to show `bgpd=on` then `sudo systemctl reload frr`
 
 TODO - still need to configure it!
+
+## rsyslog
+
+- `apt install rsyslog`
+- edit `/etc/rsyslog.conf` and uncomment the UDP and TCP reception sections
+then add to the file  
+```
+#Custom template to generate the log filename dynamically based on the client's IP address.
+$template RemInputLogs, "/var/log/remotelogs/%FROMHOST-IP%/%PROGRAMNAME%.log"
+*.* ?RemInputLogs
+```
+- `sudo systemctl restart rsyslog`
+## ufw
+
+needed ports
+- 22 tcp for ssh
+- 179 for bgp???
+- 514 udp/tcp for rsyslog
