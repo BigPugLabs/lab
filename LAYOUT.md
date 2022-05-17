@@ -9,7 +9,8 @@ Home router 		192.168.0.1
 ├── prox 		192.168.0.5
 │    └── vyos-prox	192.168.0.6	AS 64520
 │         ├── bind-01   10.5.53.1	AS 64530
-│         └── netsvr    10.5.0.7        AS 64700
+│         ├── netsvr    10.5.0.7        AS 64700
+│         └── k3s-control    10.5.10.10        AS 64510(metallb)
 │
 ├── netsvr              192.168.0.7	AS 64700
 │
@@ -33,6 +34,7 @@ pihole dns	192.168.0.53
 eth0                    192.168.0.6	wan
 │
 ├── eth1                10.5.0.1/16	local
+│    ├── eth1.10        10.5.10.1/24    k3s
 │    └── eth1.53        10.5.53.0/31	dns vlan
 └── wg0                 10.21.21.0/31	ptp with metis
 ```
