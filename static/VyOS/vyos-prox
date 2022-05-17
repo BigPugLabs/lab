@@ -6,6 +6,10 @@ interfaces {
     ethernet eth1 {
         address 10.5.0.1/24
         description "prox lab"
+        vif 10 {
+            address 10.5.10.1/24
+            description "k3s network"
+        }
         vif 53 {
             address 10.5.53.0/31
             description "dns vlan"
@@ -44,6 +48,8 @@ protocols {
             ipv4-unicast {
                 network 10.5.0.0/24 {
                 }
+                network 10.5.10.0/24 {
+                }
                 network 10.5.53.0/31 {
                 }
                 network 10.21.21.0/31 {
@@ -53,6 +59,13 @@ protocols {
             }
         }
         local-as 64520
+        neighbor 10.5.10.10 {
+            address-family {
+                ipv4-unicast {
+                }
+            }
+            remote-as 64510
+        }
         neighbor 10.5.53.1 {
             address-family {
                 ipv4-unicast {
