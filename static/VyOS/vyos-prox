@@ -26,10 +26,10 @@ interfaces {
             allowed-ips 10.15.0.0/16
             allowed-ips 10.0.0.0/8
             port 51820
-            public-key u1HvjcBMonGglBWrKiKKa1koU6h4nhZsHGKa60PS6S8=
+            public-key *****************************
         }
         port 51820
-        private-key 4EPgFq+GmJNGANfrVIwAnGzo0wXGVVqN4bvIlqwcglg=
+        private-key *****************************
     }
 }
 nat {
@@ -112,8 +112,8 @@ system {
     login {
         user vyos {
             authentication {
-                encrypted-password $6$AFgGQYuuYtFjbuwT$eYnZJW86B3cMxripZZRU/DL0xDK.qO9gdTrG7BLbC7jQ0QAG0NXiniuCvmxDacvMHRJB1QGLKDuQIzMfQgmSG0
-                plaintext-password ""
+                encrypted-password ******************************************
+                plaintext-password ******************************************
             }
         }
     }
