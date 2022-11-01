@@ -3,6 +3,7 @@
 ## install
 
 `curl -sfL https://get.k3s.io | sh -s - server --disable=servicelb,local-storage --write-kubeconfig-mode=644`
+- add to .bashrc `source <(kubectl completion bash)`
 
 ### Helm
 
@@ -30,3 +31,23 @@
 `kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml`
  then to expose the dashboard temporarily
 `kubectl -n longhorn-system expose deployment longhorn-ui --type=LoadBalancer`
+
+### drone
+
+- `helm repo add drone https://charts.drone.io`
+- `helm repo update`
+- `helm show values drone/drone >> yamls/drone.yaml`
+
+#### secret
+- make a shared secret `openssl rand -hex 16`
+- get the github oauth clientID/client secret
+- `kubectl create namespace drone`
+```
+kubectl -n drone create secret generic my-drone-secrets \
+--from-literal=DRONE_RPC_SECRET='<---SeCrEtKey--->' \
+--from-literal=DRONE_GITHUB_CLIENT_ID='S!B\*d$dsfdfdfzDsb=' \
+--from-literal=DRONE_GITHUB_CLIENT_SECRET='S!B\*d$zDfdsfdgdfdafsb='
+```
+- edit the drone yaml to use the secret, add the host and proto
+
+- `helm install --namespace drone drone drone/drone -f yamls/drone.yaml`

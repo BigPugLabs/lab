@@ -1,0 +1,6 @@
+[Unit]
+Description=Renew certs and kick nginx
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker compose -f /root/nginxssl/compose.yaml run --rm certbot renew --post-hook"/usr/bin/docker exec nginxssl-webserver-1 nginx -s reload" --quiet

@@ -13,3 +13,11 @@ A management host
 - frr
 - RADIUS
 - syslog
+
+## dockerpug
+
+#### debian 11
+
+- nic1 : 192.168.0.21
+
+used as docker tester
