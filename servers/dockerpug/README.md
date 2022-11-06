@@ -50,3 +50,7 @@ systemctl enable renew-certbot.timer
 systemctl start renew-certbot.timer
 ```
 and it should show up in the output of `systemctl list-timers`
+
+#### Todos
+
+- fix restarting of nginx if certs are refreshed
