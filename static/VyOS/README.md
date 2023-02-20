@@ -111,3 +111,18 @@ working but not great configs are in the individual files
 ## Firewall and other hardening
 
 Yeah, this maybe should have been first rather than last
+
+## VRRP floating IP
+
+To simplify routing for the simple ISP router a single IP can be floated between multiple routers allowing all availiable routes locally whatever VyOS routers are online.
+
+On router 1 (VyOS Metis) to be the primary router
+
+```
+set high-availability vrrp group Homelan vrid 2
+set high-availability vrrp group Homelan interface eth0
+set high-availability vrrp group Homelan address 192.168.0.2/
+set high-availability vrrp group Homelan priority 200
+set high-availability vrrp group Homelan rfc3768-compatibility
+set high-availability vrrp sync-group sync member Homelan
+```
