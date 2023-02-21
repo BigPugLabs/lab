@@ -121,8 +121,23 @@ On router 1 (VyOS Metis) to be the primary router
 ```
 set high-availability vrrp group Homelan vrid 2
 set high-availability vrrp group Homelan interface eth0
-set high-availability vrrp group Homelan address 192.168.0.2/
+set high-availability vrrp group Homelan address 192.168.0.2/24
 set high-availability vrrp group Homelan priority 200
 set high-availability vrrp group Homelan rfc3768-compatibility
 set high-availability vrrp sync-group sync member Homelan
+set nat source rule 10 destination address !192.168.0.0/24
 ```
+
+On router 2 (VyOS Prox) to be the secondary router
+
+```
+set high-availability vrrp group Homelan vrid 2
+set high-availability vrrp group Homelan interface eth0
+set high-availability vrrp group Homelan address 192.168.0.2/24
+set high-availability vrrp group Homelan priority 100
+set high-availability vrrp group Homelan rfc3768-compatibility
+set high-availability vrrp sync-group sync member Homelan
+set nat source rule 10 destination address !192.168.0.0/24
+```
+
+current bug! Cant route to 10.5.0.8 from 192 or 10.15 nets when vyos-metis is primary
